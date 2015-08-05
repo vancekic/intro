@@ -62,7 +62,7 @@ module.exports = app;
 
 app.get('/', function(req, res) {
 	response.sendFile(__dirname + "index.html");
-	response.sendFile(__dirname + "start.js");
-	response.sendFile(__dirname + "dna.jpg");
+//	response.sendFile(__dirname + "start.js");
+//  response.sendFile(__dirname + "dna.jpg");
 });
 app.listen(8080);
