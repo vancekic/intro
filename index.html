@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Stephane Assadourian's Home Page">
+    <title>Time is all we have!</title>
+    <link href="main.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <a href="index.html" title="Home" class="pull-left">
+            <img class="logo pull-left" src="dna.jpg"></img>
+        </a>
+        <ul class="nav nav-pills navbar-left">
+            <li><a href="#">Demo</a></li>
+            <li><a href="#info">Genetic Algorithms</a></li>
+        </ul>
+        <ul class="nav nav-pills navbar-right">
+            <li><a href="#info">Informations</a></li>
+            <li><a href="#" data-toggle="dropdown">About <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="story.html">Story</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="www.facebook.com">Facebook</a></li>
+                    <li><a href="www.twitter.com">Twitter</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>This demo will demonstrate a basic use of genetic algorithms</p>
+            <p>The algorithm will try to find this string:</p><br>
+            <span id='mystery'>""</span><br><br>
+        </div>
+    </div>
+    <div class="row well well-lg">
+        <div class="col-md-6 text-center">
+            <canvas id='demoGA'></canvas>
+        </div>
+        <div class="col-md-6">
+            <button class= "btn-primary btn-lg" id="runButton">Run</button>
+            <button class= "btn-warning btn-lg" id="pauseButton" disabled="disabled">Pause</button>
+            <button class= "btn-primary btn-lg" id="stepButton">Step</button><br><br>
+            Population:
+            <select id="populationSelect" class="dropdown">
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+                <option value="2000">2000</option>
+                <option value="3000" selected="">3000</option>
+                <option value="5000">5000</option>
+                <option value="10000">10000</option>
+                <option value="15000">15000</option>
+                <option value="20000">20000</option>
+            </select><br><br>
+            Max Iterations:
+            <select id="maxIterationSelect" class="dropdown">
+                <option value="100">100</option>
+                <option value="500" selected="">500</option>
+                <option value="1000">1000</option>
+                <option value="2000">2000</option>
+                <option value="5000">5000</option>
+                <option value="10000">10000</option>
+                <option value="15000">15000</option>
+                <option value="20000">20000</option>
+            </select><br><br>
+            Mutation Probability:
+            <select id="mutationProbabilitySelect" class="dropdown">
+                <option value="0">0</option>
+                <option value="0.0001">0.01%</option>
+                <option value="0.0005">0.05%</option>
+                <option value="0.001">0.1%</option>
+                <option value="0.005">0.5%</option>
+                <option value="0.01">1%</option>
+                <option value="0.02">2%</option>
+                <option value="0.05" selected="">5%</option>
+                <option value="0.05">10%</option>
+            </select><br><br>
+            Speed of Simulation:
+            <select id="speedOfSimulation" class="dropdown">
+                <option value="1" selected="">Ultra Fast</option>
+                <option value="15">Very Fast</option>
+                <option value="100">Fast</option>
+                <option value="250">Normal</option>
+                <option value="400">Slow</option>
+                <option value="800">Very Slow</option>
+                <option value="1500">Ultra Slow</option>
+            </select><br><br>
+            Crossover Probability:
+            <select id="crossoverProbabilitySelect" class="dropdown">
+                <option value="0.1">10%</option>
+                <option value="0.25">25%</option>
+                <option value="0.5">50%</option>
+                <option value="0.6">60%</option>
+                <option value="0.7">70%</option>
+                <option value="0.8" selected="">80%</option>
+                <option value="0.9">90%</option>
+                <option value="0.95">95%</option>
+                <option value="1">100%</option>
+            </select><br><br>
+            Best Parents Probability:
+            <select id="bestParentProbabilitySelect" class="dropdown">
+                <option value="0.1">10%</option>
+                <option value="0.25">25%</option>
+                <option value="0.5">50%</option>
+                <option value="0.75" selected="">75%</option>
+                <option value="1">100%</option>
+            </select><br><br>
+            <button class= "btn-success btn-lg" id="restartButton">Restart Demo</button>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-6">
+            <stats id="message"></stats><br><br>
+        </div>
+        <div class="col-md-6"></div><br><br>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-6">
+            <span>BEST STRING</span>
+        </div>
+        <div class="col-md-6">
+            <span>BEST FITNESS</span>
+        </div>
+    </div>
+    <div class="row well well-lg text-center">
+        <div class="col-md-6">
+            <stats id="statslog1"></stats>
+        </div>
+        <div class="col-md-6">
+            <stats id="statslog2">0</stats>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>How does it work ?</h2>
+        <p>
+            In a nutshell, it finds a solution to an optimization problem.
+            <br>
+            Here are the algorithm's main components :
+        </p>
+        <ul>
+            <li><h3>Initialization</h3></li>
+            <p>The population size depends on the nature of the problem, but typically contains several hundreds or thousands of possible solutions. Often, the initial population is generated randomly, allowing the entire range of possible solutions (the search space). Occasionally, the solutions may be "seeded" in areas where optimal solutions are likely to be found.</p>
+            <li><h3>Selection</h3></li>
+            <p>During each successive generation, a proportion of the existing population is selected to breed a new generation. Individual solutions are selected through a fitness-based process, where fitter solutions (as measured by a fitness function) are typically more likely to be selected. Certain selection methods rate the fitness of each solution and preferentially select the best solutions. Other methods rate only a random sample of the population, as the former process may be very time-consuming.</p>
+            <p>The fitness function is defined over the genetic representation and measures the quality of the represented solution. The fitness function is always problem dependent. For instance, in the knapsack problem one wants to maximize the total value of objects that can be put in a knapsack of some fixed capacity. A representation of a solution might be an array of bits, where each bit represents a different object, and the value of the bit (0 or 1) represents whether or not the object is in the knapsack. Not every such representation is valid, as the size of objects may exceed the capacity of the knapsack. The fitness of the solution is the sum of values of all objects in the knapsack if the representation is valid, or 0 otherwise.</p>
+            <p>The next step is to generate a second generation population of solutions from those selected through a combination of genetic operators: crossover (also called recombination), and mutation.</p>
+            <li><h3>Genetic operators</h3></li>
+            <ol>
+                <li><b>Crossover</b></li>
+                <p>In genetic algorithms, crossover is a genetic operator used to vary the programming of a chromosome or chromosomes from one generation to the next. It is analogous to reproduction and biological crossover, upon which genetic algorithms are based. Cross over is a process of taking more than one parent solutions and producing a child solution from them. There are methods for selection of the chromosomes. Those are also given below.</p>
+                <li><b>Mutation</b></li>
+                <p>Mutation is a genetic operator used to maintain genetic diversity from one generation of a population of genetic algorithm chromosomes to the next. It is analogous to biological mutation. Mutation alters one or more gene values in a chromosome from its initial state. In mutation, the solution may change entirely from the previous solution. Hence GA can come to better solution by using mutation. Mutation occurs during evolution according to a user-definable mutation probability. This probability should be set low. If it is set too high, the search will turn into a primitive random search.</p>
+            </ol>
+            <p>For each new solution to be produced, a pair of "parent" solutions is selected for breeding from the pool selected previously. By producing a "child" solution using the above methods of crossover and mutation, a new solution is created which typically shares many of the characteristics of its "parents". New parents are selected for each new child, and the process continues until a new population of solutions of appropriate size is generated. Although reproduction methods that are based on the use of two parents are more "biology inspired", some research suggests that more than two "parents" generate higher quality chromosomes.</p>
+            <p>These processes ultimately result in the next generation population of chromosomes that is different from the initial generation. Generally the average fitness will have increased by this procedure for the population, since only the best organisms from the first generation are selected for breeding, along with a small proportion of less fit solutions. These less fit solutions ensure genetic diversity within the genetic pool of the parents and therefore ensure the genetic diversity of the subsequent generation of children.</p>
+            <p>It is worth tuning parameters such as the mutation probability, crossover probability and population size to find reasonable settings for the problem class being worked on. A very small mutation rate may lead to genetic drift (which is non-ergodic in nature). A recombination rate that is too high may lead to premature convergence of the genetic algorithm. A mutation rate that is too high may lead to loss of good solutions, unless elitist selection is employed.</p>
+            <li><h3>Termination</h3></li>
+            <ul>This generational process is repeated until a termination condition has been reached. Common terminating conditions are:
+                <li>A solution is found that satisfies minimum criteria</li>
+                <li>Fixed number of generations reached</li>
+                <li>Allocated budget (computation time/money) reached</li>
+                <li>The highest ranking solution's fitness is reaching or has reached a plateau such that successive iterations no longer produce better results</li>
+                <li>Manual inspection</li>
+                <li>Combinations of the above</li>
+            </ul>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="start.js"></script>
+</body>
+</html>
